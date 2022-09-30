@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ArticleBarsTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="colorPrimary">@color/color_article_bar</item>
+        <item name="colorOnPrimary">@color/color_on_article_bar</item>
+        <item name="colorSurface">#131212</item>
+        <item name="colorControlNormal">@color/color_on_article_bar</item>
+        <item name="android:textColorHint">@color/color_gray</item>
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="ArticleToolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
+        <item name="titleTextColor">@color/color_on_article_bar</item>
+        <item name="android:fontFamily">@font/ppdregular</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <style name="TextTitle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/comediantdecor</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="TextViewButtonFragment">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/color_text_button</item>
+        <item name="fontFamily">@font/comediantdecor</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+    
+    <style name="CustomTextItems" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:fontFamily">@font/comediantdecor</item>
+    </style>
+
+    <style name="MainTextPointsOfGameList">
+        <item name="android:padding">4dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <!-- Points store -->
+    <!--<style name="PlayerNameSavePoints">
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="paddingStart">12dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/comediantdecor</item>
+
+    </style>-->
+    <style name="PlayerNameSavePoints">
+        <item name="android:layout_marginStart">50dp</item>
+        <item name="android:layout_marginEnd">50dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/comediantdecor</item>
+        <item name="android:textColorHint">@color/color_gray</item>
+    </style>
+
+    <style name="PlayerNameFinishGame">
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:paddingEnd">46dp</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/comediantdecor</item>
+    </style>
+
+    <style name="PlayerNameListOfGames">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">6sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/comediantdecor</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="PlayerCountListOfGames" parent="PlayerNameListOfGames">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="RequestPointsTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:focusable">false</item>
+    </style>
+</resources>

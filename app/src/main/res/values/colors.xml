@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- <color name="color_primary">#131012</color>-->
+    <color name="color_primary">#131012</color>
+    <color name="color_primary_dark">#1B0510</color>
+    <color name="color_accent">#FC4C4C</color>
+    <color name="color_accent_dark">#D64141</color>
+    <color name="color_gray">#9ca9ba</color>
+    <color name="color_gray_light">#EEEEEE</color>
+    <color name="color_surface">#B7B9BB</color>
+    <color name="color_on_surface">#202020</color>
+
+    <color name="color_article_bar">#79191818</color>
+    <color name="color_on_article_bar">#DEDAEA</color>
+    <color name="color_divider">#BF283AA5</color>
+    <color name="color_submenu_surface">#ECEAE2</color>
+
+    <color name="color_paper_surface">#C4B9A0</color>
+    <color name="color_text_button">#21267A</color>
+
+ <color name="color_current_points_positive">#216C24</color>
+ <color name="color_current_points_negative">#A32B28</color>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:title="@string/main_menu_new"
+        android:id="@+id/action_new"
+        android:icon="@drawable/ic_baseline_fiber_new_24"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:title="@string/main_menu_load"
+        android:id="@+id/action_load"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"/>
+    <!--app:actionLayout="@layout/layout_search"/>
+-->
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/ic_baseline_menu_24"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:title="@string/main_menu_rules"
+                android:id="@+id/action_rules"
+                android:icon="@drawable/ic_baseline_list_alt_24"
+                app:showAsAction="always"
+                />
+
+            <item
+                android:title="@string/main_menu_save"
+                android:id="@+id/action_save"
+                android:icon="@drawable/ic_baseline_save_24"
+                app:showAsAction="always"
+                />
+
+            <item
+                android:title="@string/main_menu_exit"
+                android:id="@+id/action_exit"
+                android:icon="@drawable/ic_exit_icon_icons_com_70975"
+                app:showAsAction="always"
+                />
+        </menu>
+    </item>
+
+
+</menu>

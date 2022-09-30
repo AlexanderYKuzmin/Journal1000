@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragments.StartFragment"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/tv_1000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+
+        android:fontFamily="@font/dilema"
+        android:textStyle="bold"
+        android:textColor="#B2B1ACAB"
+        android:textSize="58dp"
+        android:textAlignment="center"
+        android:text="1   0  0  0"
+        />
+
+    <ImageView
+        android:id="@+id/iv_journal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:src="@drawable/journal_closed_4"
+        android:layout_gravity="center"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start_game"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:backgroundTint="#94696B6E"
+        android:textColor="@color/color_primary_dark"
+
+        android:text="@string/load_last_game"
+        android:fontFamily="@font/comediantdecor"
+        android:textStyle="bold"
+        />
+
+
+</FrameLayout>

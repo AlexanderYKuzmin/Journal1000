@@ -1,0 +1,63 @@
+<resources>
+    <!--Main activity-->
+    <string name="app_name">Journal1000</string>
+    <string name="app_name_rus">Т Ы С Я Ч А</string>
+    <string name="subtitle_rus">Игровой журнал</string>
+
+    <!-- Menu -->
+    <string name="main_menu_new">Создать</string>
+    <string name="main_menu_load">Загрузить</string>
+    <string name="main_menu_rules">Правила</string>
+    <string name="main_menu_save">Сохранить</string>
+    <string name="main_menu_exit">Выйти</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Fragment settings -->
+    <string name="title_settings">Игровые данные</string>
+    <string name="players_amount_settings">Количество игроков: </string>
+    <string name="game_name_hint">Название игры</string>
+    <string name="first_player_name_hint">Имя первого игрока</string>
+    <string name="second_player_name_hint">Имя второго игрока</string>
+    <string name="third_player_name_hint">Имя третьего игрока</string>
+    <string name="continue_tv">Продолжить</string>
+    <string name="cancel_tv">Отменить</string>
+
+    <string-array name="numberOfPlayers">
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- Fragment save points -->
+    <string name="title_save_points">Запись очков</string>
+    <string name="title_auction">Торг</string>
+    <string name="request_hint">Заказ</string>
+    <string name="hundred">100</string>
+
+    <!-- Fragment finish -->
+    <string name="title_finish">Результат игры</string>
+    <string name="game_count">Распределение очков между игроками:</string>
+    <string name="player_name">%s :</string>
+
+    <!-- Start Fragment -->
+    <string name="load_last_game">Загрузить последнюю игру</string>
+    <string name="new_game">Новая игра</string>
+
+    <!--Fragment GameList-->
+    <string name="save_points">Записать очки</string>
+    <string name="finish_game">Подвести итоги</string>
+    <string name="barrels_count">: %d</string>
+    <string name="bolts_count">: %d</string>
+
+    <!--Messages-->
+    <string name="game_not_found">Игра не найдена</string>
+
+    <string name="player_on_barrel">Игрок %s влезает на бочку</string>
+    <string name="player_off_barrel">Игрок %s слетает с бочки</string>
+    <string name="player_get_bolt">Игрок %s получает болт</string>
+    <string name="player_pay_fine_bolt">Игрок %s получает штраф -120 очков за 3 болта</string>
+    <string name="player_win">Игрок %s одерживает победу</string>
+    <string name="player_reset">Очки игрока %s сброшены</string>
+
+
+</resources>
