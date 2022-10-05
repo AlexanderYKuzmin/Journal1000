@@ -37,6 +37,14 @@
         <entry key="..\:/Users/kuzmi/AndroidStudioProjects/Journal1000/app/src/main/res/layout/layout_search.xml" value="0.35208333333333336" />
         <entry key="..\:/Users/kuzmi/AndroidStudioProjects/Journal1000/app/src/main/res/layout/searchview.xml" value="0.33" />
         <entry key="..\:/Users/kuzmi/AndroidStudioProjects/Journal1000/app/src/main/res/menu/main_menu.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_finish_game.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/fragment_game_score_list_2_p.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/fragment_game_score_list_3_p.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/fragment_game_settings.xml" value="0.15572916666666667" />
+        <entry key="app/src/main/res/layout/fragment_games.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_rules.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.15572916666666667" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.1984375" />
       </map>
     </option>
   </component>

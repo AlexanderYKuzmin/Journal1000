@@ -49,6 +49,9 @@
     <string name="barrels_count">: %d</string>
     <string name="bolts_count">: %d</string>
 
+    <!--Fragment Rules-->
+    <string name="continue_tv_rules">Продолжить</string>
+
     <!--Messages-->
     <string name="game_not_found">Игра не найдена</string>
 

@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.journal1000.App
 import com.example.journal1000.R
+import com.example.journal1000.data.DataHolder
 import com.example.journal1000.data.GamePreferences
 import com.example.journal1000.data.MessageHolder
 import com.example.journal1000.data.PrefManager
@@ -15,12 +16,14 @@ import com.example.journal1000.data.UserScheme.NAME_ONE
 import com.example.journal1000.data.UserScheme.NAME_THREE
 import com.example.journal1000.data.UserScheme.NAME_TWO
 import com.example.journal1000.data.UserScheme.NUM_OF_PLAYERS
+import com.example.journal1000.data.markdown.MarkdownParser
 import com.example.journal1000.domain.entity.*
 import com.example.journal1000.domain.entity.GameType.THREE_PLAYER_GAME
 import com.example.journal1000.domain.entity.GameType.TWO_PLAYER_GAME
 import com.example.journal1000.domain.entity.PlayerOrder.*
 import com.example.journal1000.domain.usecases.*
 import com.example.journal1000.presentation.adapters.GameListItem
+import com.example.journal1000.presentation.markdown.MarkdownBuilder
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -34,6 +37,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     private val gameFactory: GameFactory = GameFactory(this)
     private val prefManager: PrefManager = PrefManager(getApplication())
     lateinit var prefs: GamePreferences
+
+    //private val contentRules = MarkdownParser.parse(DataHolder.rulesText)
+
+    private val _showRules = MutableLiveData<Unit>()
+    val showRules: LiveData<Unit>
+        get() = _showRules
 
     private val _isSearch = MutableLiveData(false)
     val isSearch: LiveData<Boolean>
@@ -185,6 +194,10 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         startGame()
     }
 
+    fun handleRules() {
+        _showRules.value = Unit
+    }
+
     fun handleNew() {
         Log.d("GameVM", "Start new")
         clearGameData()
@@ -295,6 +308,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         //playerOnHundred = game.onHundredPlayer.value
     }
 
+    @SuppressWarnings("SuspiciousIndentation")
     fun handleRequestPoints(auctionData: Pair<PlayerOrder, Int>) {
         clearAuctionData()
         _players.map {

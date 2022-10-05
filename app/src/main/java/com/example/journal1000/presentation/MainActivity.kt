@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
             if (it) launchGameListFragment()
             //else
         }
-
         viewModel.searchState.observe(this) {
             launchGamesFragment(
                 vbSearchView.etDateFrom.text.toString(),
@@ -80,12 +79,14 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
         viewModel.auctionFinished.observe(this) {
             supportFragmentManager.popBackStack()
         }
+        viewModel.showRules.observe(this) {
+            launchRulesFragment()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -110,6 +111,10 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.putExtra(FINISH, true)
                 finish()
+            }
+
+            R.id.action_rules -> {
+                viewModel.handleRules()
             }
 
         }
@@ -263,7 +268,20 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
         }
     }
 
-
+    private fun launchRulesFragment() {
+        Log.d(LOG_TAG, "launch rules Fragment")
+        //supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
+            .addToBackStack(null)
+            .replace(R.id.playlist_container, RulesFragment.newInstance())
+            .commit()
+    }
 
     override fun onFinishSettingsEdition(playersNames: List<String>) {
         supportFragmentManager.popBackStack()
@@ -349,6 +367,10 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
     }
 
     override fun backToGameScoreList() {
+        supportFragmentManager.popBackStack()
+    }
+
+    override fun removeRulesSheet() {
         supportFragmentManager.popBackStack()
     }
 

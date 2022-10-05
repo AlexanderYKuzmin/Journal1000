@@ -21,4 +21,5 @@ interface OnFragmentBehaviorControlManager {
 
     fun onGameSelected(gameWithScores: GameWithScores)
 
+    fun removeRulesSheet()
 }
