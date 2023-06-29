@@ -440,6 +440,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
             when (game.onHundredPlayer) {
                 ONE -> game?.onHundredPlayer = TWO
                 TWO -> game?.onHundredPlayer = ONE
+                else -> {
+                    throw RuntimeException("Incorrect number of players")
+                }
             }
         }
     }

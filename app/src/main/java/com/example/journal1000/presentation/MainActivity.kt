@@ -21,6 +21,7 @@ import com.example.journal1000.domain.entity.GameType
 import com.example.journal1000.domain.entity.GameWithScores
 import com.example.journal1000.domain.entity.PlayerOrder
 import com.example.journal1000.extensions.dpToIntPx
+import com.example.journal1000.extensions.dpToPx
 import com.example.journal1000.extensions.format
 import com.example.journal1000.presentation.*
 import com.example.journal1000.presentation.fragments.*
@@ -135,6 +136,7 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
     fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         binding.toolbar.overflowIcon = getDrawable(R.drawable.ic_baseline_menu_24)
+
         val logo = if (binding.toolbar.childCount > 2) binding.toolbar.getChildAt(2) as ImageView else null
         logo?.scaleType = ImageView.ScaleType.CENTER_CROP
         val lp = logo?.layoutParams as? Toolbar.LayoutParams
@@ -148,6 +150,7 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
         val title = binding.toolbar.getChildAt(0) as TextView
         val titleTypeFace: Typeface = Typeface.createFromAsset(assets, "fonts/zaragozac.ttf")
         title.typeface = titleTypeFace
+        title.textSize = 20f
 
         val subTitle = binding.toolbar.getChildAt(1) as TextView
         val subTitleTypeFace: Typeface = Typeface.createFromAsset(assets, "fonts/comediant-decor.ttf")

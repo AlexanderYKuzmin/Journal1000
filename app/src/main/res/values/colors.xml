@@ -18,6 +18,7 @@
     <color name="color_paper_surface">#C4B9A0</color>
     <color name="color_text_button">#21267A</color>
 
- <color name="color_current_points_positive">#216C24</color>
- <color name="color_current_points_negative">#A32B28</color>
+    <color name="color_current_points_positive">#216C24</color>
+    <color name="color_current_points_negative">#A32B28</color>
+
 </resources>

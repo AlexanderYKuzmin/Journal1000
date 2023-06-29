@@ -18,61 +18,11 @@
             style="@style/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-<!--
-        <TableLayout
-            android:id="@+id/tl_players_points_store"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
 
-            <TableRow>
-                <TextView
-                    android:id="@+id/tv_save_points_p1_name"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28sp"
-                    style="@style/PlayerNameSavePoints"
-                    tools:text="Alesha:" />
-
-                <EditText
-                    android:id="@+id/et_p1_points"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28sp"
-                    android:textSize="33sp"
-                    android:background="@color/color_surface"
-
-                    tools:text="120" />
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/tv_save_points_p2_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28sp"
-                    style="@style/PlayerNameSavePoints"
-                    tools:text="GAnnibal:" />
-
-                <EditText
-                    android:id="@+id/et_p2_points"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28sp"
-                    android:textSize="33sp"
-                    android:background="@color/color_surface"
-                    tools:text="350" />
-            </TableRow>
-        </TableLayout>-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_p1_points"
             android:layout_width="match_parent"

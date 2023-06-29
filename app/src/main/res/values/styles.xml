@@ -17,9 +17,9 @@
     </style>
 
     <style name="TextTitle">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">42sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="fontFamily">@font/comediantdecor</item>
+        <item name="fontFamily">@font/boncegroff4f</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textAlignment">center</item>
     </style>
