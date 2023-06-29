@@ -89,4 +89,26 @@
         <item name="android:textAlignment">center</item>
         <item name="android:focusable">false</item>
     </style>
+
+    <!--Bottom bar positions fragment game score list-->
+    <style name="BottombarPositions">
+        <item name="android:fontFamily">@font/boncegroff4f</item>
+        <item name="android:background">@color/color_on_surface</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:padding">9dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+
+    <style name="BottombarPositionsForCentral" parent="BottombarPositions">
+        <item name="fontFamily">@font/comediantdecor</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:visibility">visible</item>
+    </style>
 </resources>

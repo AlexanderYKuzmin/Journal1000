@@ -5,7 +5,7 @@
     <item
         android:title="@string/main_menu_new"
         android:id="@+id/action_new"
-        android:icon="@drawable/ic_baseline_fiber_new_24"
+        android:icon="@drawable/new_doc"
         app:showAsAction="always"
         />
 

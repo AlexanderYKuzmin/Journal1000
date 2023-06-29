@@ -1,6 +1,6 @@
 <resources>
     <!--Main activity-->
-    <string name="app_name">Journal1000</string>
+    <string name="app_name">Journal 1000</string>
     <string name="app_name_rus">Т Ы С Я Ч А</string>
     <string name="subtitle_rus">Игровой журнал</string>
 
@@ -48,6 +48,8 @@
     <string name="finish_game">Подвести итоги</string>
     <string name="barrels_count">: %d</string>
     <string name="bolts_count">: %d</string>
+    <string name="auction"> Торг</string>
+    <string name="cancel"> Отмена</string>
 
     <!--Fragment Rules-->
     <string name="continue_tv_rules">Продолжить</string>
