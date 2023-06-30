@@ -103,11 +103,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="4dp"
                 android:background="@color/color_divider"
-                app:layout_constraintStart_toEndOf="@+id/tv_p1_name_2"
-                app:layout_constraintEnd_toStartOf="@+id/tv_p2_name_2"
+
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
 
             <TextView
@@ -273,7 +275,7 @@
                 />
             <TextView
                 android:id="@+id/tv_back_step_2_p"
-                android:layout_width="110dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,7 +286,7 @@
                 />
             <TextView
                 android:id="@+id/tv_auction"
-                android:layout_width="90dp"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

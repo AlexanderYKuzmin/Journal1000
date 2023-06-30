@@ -441,7 +441,7 @@
                  />
             <TextView
                 android:id="@+id/tv_back_step"
-                android:layout_width="110dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -452,7 +452,7 @@
                 tools:visibility="visible"/>
             <TextView
                 android:id="@+id/tv_auction"
-                android:layout_width="90dp"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -462,7 +462,6 @@
                 android:drawableStart="@drawable/ic_auction"
                 tools:visibility ="visible"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 </LinearLayout>
 </layout>
