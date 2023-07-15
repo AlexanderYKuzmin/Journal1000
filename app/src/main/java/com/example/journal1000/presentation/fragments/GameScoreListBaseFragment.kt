@@ -169,7 +169,6 @@ abstract class GameScoreListBaseFragment: Fragment() {
 
     protected fun setAuctionVisibility(isGameFinished: Boolean) = when {
         isGameFinished -> View.INVISIBLE
-        /*players.any { it.isOnBarrel } -> View.INVISIBLE*/
         else -> View.VISIBLE
     }
 
@@ -178,7 +177,6 @@ abstract class GameScoreListBaseFragment: Fragment() {
     }
 
     override fun onDestroy() {
-        Log.d("GameScorelistFragment", "on Destroy")
         super.onDestroy()
     }
 

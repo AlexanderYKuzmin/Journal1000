@@ -36,7 +36,6 @@ class RulesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //val contentRules = MarkdownParser.parse(DataHolder.rulesText)
         with(binding.tvRules) {
             setMovementMethod(ScrollingMovementMethod())
             setText(MarkdownBuilder(context).markdownToSpan(DataHolder.rulesText))

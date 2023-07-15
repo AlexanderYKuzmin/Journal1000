@@ -8,81 +8,15 @@ object MarkdownParser {
     //group regex
     private const val UNORDERED_LIST_ITEM_GROUP = "(^[*+-] .+$)"                                        //1
     private const val HEADER_GROUP = "(#{1,6} .+?$)"                                                   //2
-    //private const val QUOTE_GROUP = "(^> .+?$)"                     //3
-    //private const val ITALIC_GROUP = "((?<!\\*)\\*[^*].*?[^*]?\\*(?!\\*)|(?<!_)_[^_].*?[^_]?_(?!_))"   //4
-    //private const val BOLD_GROUP =
-    //    "((?<!\\*)\\*{2}[^*].*?[^*]?\\*{2}(?!\\*)|(?<!\\_)_{2}[^_].*?[^_]?_{2}(?!_))" //5
-    //private const val STRIKE_GROUP = "((?<!~)~{2}[^~].*?[^~]?~{2}(?!~))" //6
-    //private const val RULE_GROUP = "(^[-_*]{3}$)" //7
-    //private const val INLINE_GROUP = "((?<!`)`[^`\\s].*?[^`\\s]?`(?!`))" //8
-    //private const val LINK_GROUP = "((\\[[^\\[\\]]*?\\]\\(.+?\\))|(^\\[*?]\\(.*?)\\))"   //9 (10, 11)
-    //private const val ORDERED_LIST_ITEM_GROUP = "(^\\d+\\.\\s.+$)" //12
-    ////private const val IMAGE_GROUP = "(^!\\[[^\\[\\]]*?\\]\\(.+?\\))" //13
-    //private const val IMAGE_GROUP = "(^!\\[[^\\[\\]]*?\\]\\(.+?\\)$)" //13
-    ////private const val MULTILINE_GROUP = "(```[^\\s]((.+\\n)+)*.+```)" //14
-    ////private const val MULTILINE_GROUP = "(```[^\\s](.+)```|```[^\\s]((.+\\n)+)*.+```)" //14
-    //private const val MULTILINE_GROUP = "(^```[\\s\\S]+?```$)" //14
 
-    //result regex
-    /*const val MARKDOWN_GROUPS =
-        "$UNORDERED_LIST_ITEM_GROUP|$HEADER_GROUP|$QUOTE_GROUP|$ITALIC_GROUP" +
-                "|$BOLD_GROUP|$STRIKE_GROUP|$RULE_GROUP|$INLINE_GROUP|$LINK_GROUP" +
-                "|$ORDERED_LIST_ITEM_GROUP|$IMAGE_GROUP|$MULTILINE_GROUP"*/
     const val MARKDOWN_GROUPS = "$UNORDERED_LIST_ITEM_GROUP|$HEADER_GROUP"
     private val elementsPattern by lazy { Pattern.compile(MARKDOWN_GROUPS, Pattern.MULTILINE) }
-
-    /*fun parse(string: String): List<MarkdownElement> {
-        val elements = mutableListOf<Element>()
-        elements.addAll(findElements(string))
-        return elements.fold(mutableListOf()) { acc, element ->
-            val last = acc.lastOrNull()
-            when (element) {
-                is Element.Image -> acc.add(
-                    MarkdownElement.Image(
-                        element,
-                        last?.bounds?.second ?: 0
-                    )
-                )
-                is Element.BlockCode -> acc.add(
-                    MarkdownElement.Scroll(
-                        element,
-                        last?.bounds?.second ?: 0
-                    )
-                )
-                else -> {
-                    if (last is MarkdownElement.Text) last.elements.add(element)
-                    else acc.add(
-                        MarkdownElement.Text(
-                            mutableListOf(element),
-                            last?.bounds?.second ?: 0
-                        )
-                    )
-                }
-            }
-            acc
-        }
-    }*/
 
     fun parse(string: String): MarkdownText {
         val elements = mutableListOf<Element>()
         elements.addAll(findElements(string))
         return MarkdownText(elements)
     }
-
-    /*fun clear(string: String): String? {
-        //val dividerRemoved = string.replace("_{3}|\\*{3}|-{3}".toRegex(), " ")
-        *//*return dividerRemoved.replace((
-                "#{1,6} " + // Headers
-                "|(?<!`)\\[|\\](?!`)|(?<!`)\\(.+\\)(?!`)" + //Links
-                "|(?<!.)([-+*] )" +
-                "|((?<![ \\w])[-+](?![.]))|((?<![*_~])[*_~]{1,3}(?!\\s))|(?<!\\s)([*_~]{1,3}(?=[*_~\\s\\W]))" + //italic, bold, strike and others
-                "|((?<!.)> )" + //Quotes
-                "|((?<!.)\\d+\\. )" + // Ordered
-                "|((?<= )`(?![ `])(?=.*`))| "         //((?<=\\s)`{3}(?!\\s))|(?<!\\s)`{3}(?=\\s)" //Inline & Multiline |((?<=`.*)(?<!`)`(?=[ \n]))
-                ).toRegex(), "")*//*
-        //val headersRemoved = dividerRemoved.replace("#{1,6} ".toRegex(), "") // delete headers
-        return string.replace(MARKDOWN_GROUPS, "")
-    }*/
 
     private fun findElements(string: CharSequence): List<Element> {
         val parents = mutableListOf<Element>()
@@ -258,38 +192,6 @@ object MarkdownParser {
 
 data class MarkdownText(val elements: List<Element>)
 
-/*sealed class MarkdownElement() {
-    abstract val offset: Int
-    val bounds: Pair<Int, Int> by lazy {
-        when(this) {
-            is Text -> {
-                val end = elements.fold(offset) { acc, el ->
-                    acc + el.spread().map { it.text.length }.sum()
-                }
-                offset to end
-            }
-            is Image -> offset to image.text.length + offset
-            is Scroll -> offset to blockCode.text.length + offset
-            else -> throw RuntimeException("wrong element type")
-        }
-    }
-
-    data class Text(
-        val elements: MutableList<Element>,
-        override val offset: Int = 0
-    ) : MarkdownElement()
-
-    data class Image(
-        val image: Element.Image,
-        override val offset: Int = 0
-    ) : MarkdownElement()
-
-    data class Scroll(
-        val blockCode: Element.BlockCode,
-        override val offset: Int = 0
-    ) : MarkdownElement()
-}*/
-
 sealed class Element() {
     abstract val text: CharSequence
     abstract val elements: List<Element>
@@ -388,16 +290,3 @@ private fun Element.clearContent(): String {
         else element.elements.forEach { append(it.clearContent()) }
     }.toString()
 }
-
-/*
-fun List<MarkdownElement>.clearContent(): String {
-    return StringBuilder().apply {
-        this@clearContent.forEach {
-            when (it) {
-                is MarkdownElement.Text -> it.elements.forEach { el -> append(el.clearContent()) }
-                is MarkdownElement.Image -> append(it.image.clearContent())
-                is MarkdownElement.Scroll -> append(it.blockCode.clearContent())
-            }
-        }
-    }.toString()
-}*/

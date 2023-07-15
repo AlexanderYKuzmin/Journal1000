@@ -20,7 +20,6 @@ import com.example.journal1000.presentation.viewmodels.GameViewModelFactory
 private const val PLAYERS = "players"
 private const val GAME_TYPE = "game_type"
 
-
 class FinishGameFragment : Fragment() {
     private lateinit var players: Array<Player>
     private lateinit var gameType: GameType
@@ -89,14 +88,11 @@ class FinishGameFragment : Fragment() {
     }
 
     private fun getTextColor(result: Int): Int {
-        Log.d("FinishGame getcolor", "result Int = $result")
         return when {
             result > 0 -> {
-                Log.d("Finish game gat color", " result > 0  result = $result")
                 ContextCompat.getColor(requireContext(),R.color.color_current_points_positive)
             }
             result < 0 -> {
-                Log.d("Finish game gat color", " result < 0  result = $result")
                 ContextCompat.getColor(requireContext(), R.color.color_current_points_negative)
             }
             else -> {
@@ -114,7 +110,6 @@ class FinishGameFragment : Fragment() {
 
         }
     }
-
 
     companion object {
          const val RESET_GAME = "reset"

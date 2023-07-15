@@ -85,8 +85,6 @@ class GamesAdapter(val context: Context): RecyclerView.Adapter<GamesAdapter.Game
         return games[position].game.type.value
     }
 
-
-
     companion object {
         private const val THREE_PLAYER_GAME = 3
         private const val TWO_PLAYER_GAME = 2

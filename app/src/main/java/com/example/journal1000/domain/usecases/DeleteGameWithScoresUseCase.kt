@@ -7,6 +7,5 @@ class DeleteGameWithScoresUseCase(private val repository: GameDao) {
 
     suspend fun deleteGameWithScores(games: List<Game>) {
         repository.deleteGame(games)
-        //repository.saveScores(gameWithScores.scores)
     }
 }

@@ -19,25 +19,11 @@ interface GameDao {
     @Query("SELECT * FROM games WHERE game_id == :id")
     suspend fun getGameWithScores(id: Long): GameWithScores?
 
-    //@Query("DELETE FROM games, scores, players")
     @Query("DELETE FROM games")
     fun deleteAll()
 
     @Delete
     suspend fun deleteGame(games: List<Game>)  // Должно удаляться вроде как все каскадом
-
-    /*@Delete
-    fun deleteScores(scores: List<Score>)
-
-    @Delete
-    fun deletePlayers(players: List<Player>)*/
-
-    /*@Transaction
-    fun deleteGameWithScores(gameWithScores: GameWithScores) {
-        deleteGame(gameWithScores.game)
-        deleteScores(gameWithScores.scores)
-        deletePlayers(gameWithScores.players)
-    }*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveGame(game: Game): Long

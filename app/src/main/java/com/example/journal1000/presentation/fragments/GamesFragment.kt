@@ -34,8 +34,6 @@ class GamesFragment : Fragment() {
 
     private lateinit var adapter: GamesAdapter
 
-    //private lateinit var savePointsListener: OnFragmentBehaviorControlManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -59,7 +57,6 @@ class GamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModel = ViewModelProvider(requireActivity())[GameViewModel::class.java]
         viewModel = ViewModelProvider(requireActivity(), viewModelFactory)[ListGamesViewModel::class.java]
         adapter = GamesAdapter(requireContext())
         val rvGames: RecyclerView = binding.rvGames
@@ -69,7 +66,6 @@ class GamesFragment : Fragment() {
         setUpSwipeListener(rvGames)
 
         viewModel.games.observe(viewLifecycleOwner) {
-            //Log.d("observe gamelist", "gamelist size = ${it.size}")
             adapter.games = it
         }
 
@@ -81,13 +77,12 @@ class GamesFragment : Fragment() {
         if (context is OnFragmentBehaviorControlManager) {
             selectGameListener = context
         } else {
-            throw java.lang.RuntimeException("Activity must implement listener!")
+            throw RuntimeException("Activity must implement listener!")
         }
     }
 
     private fun setUpClickListener() {
         adapter.onGameItemClickListener = {
-            //viewModel.handleSelectGame(it)
             finishListGamesUsage(it)
         }
     }
@@ -104,11 +99,6 @@ class GamesFragment : Fragment() {
     private fun finishListGamesUsage(gameWithScores: GameWithScores) {
         activity?.currentFocus?.clearFocus()
         selectGameListener?.onGameSelected(gameWithScores)
-    }
-
-    override fun onDestroy() {
-        Log.d("Games Fragment", "onDestroy")
-        super.onDestroy()
     }
 
     companion object {

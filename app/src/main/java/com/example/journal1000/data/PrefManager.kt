@@ -23,7 +23,6 @@ class PrefManager(context: Context) {
 
     val dataStore = context.dataStore
 
-
     suspend fun writeData(
         id: Long,
         numberOfPlayers: Int,
@@ -31,15 +30,7 @@ class PrefManager(context: Context) {
         name2: String,
         name3: String = "Noname"
     ) {
-        /*coroutineScope{
-            launch{
-                dataStore.updateData { prefs ->
-                    prefs.toMutablePreferences().apply {
-                        set(UserScheme.GAME_ID, id)
-                    }
-                }
-            }
-        }*/
+
         Log.d("PrefManager", "write data id = $id")
         dataStore.edit { prefs ->
             prefs[GAME_ID] = id

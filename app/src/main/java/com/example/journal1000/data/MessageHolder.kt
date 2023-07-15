@@ -1,12 +1,9 @@
 package com.example.journal1000.data
 
-import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
 import com.example.journal1000.App
 import kotlinx.coroutines.*
-import java.lang.RuntimeException
-import java.security.AccessController.getContext
 
 object MessageHolder {
     const val GAME_SCORE_LIST_DEST = 2

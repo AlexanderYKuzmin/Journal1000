@@ -29,7 +29,6 @@ class ListGamesViewModel(
     fun loadGames(startDate: String, endDate: String) {
         this.startDate = startDate.toDate() ?: MIN_DATE
         this.endDate = endDate.toDate() ?: MAX_DATE
-        Log.d("ListGamesVM", "Awaiting for database request answer")
         viewModelScope.launch {
             _games.value = mutableListOf()
             _games.value = getListOfGamesUseCase.getListOfGames(

@@ -34,7 +34,6 @@ class PointsEditionViewModel(application: Application) : AndroidViewModel(applic
         val regex = Regex("^$|^-?\\d+")
 
         for (i in playersPoints.indices) {
-            Log.d("PointsEdition validate input", "points[$i] = ${playersPoints[i]}")
             if (!playersPoints[i].matches(regex)) { //|| playersPoints[i].isNullOrEmpty()
                 errorList[i] = true
                 result = false
@@ -48,14 +47,9 @@ class PointsEditionViewModel(application: Application) : AndroidViewModel(applic
         var result = true
         val errorList = arrayOf(false, false, false)
         pointsInt = playersPoints.map {
-            if (it.isNullOrEmpty()) {
-                Log.d("VM Points edition", "String = $it")
-                0
-            } else {
-                it.toInt()
-            }
+            if (it.isNullOrEmpty()) 0
+            else it.toInt()
         }
-        Log.d("VM Points edition", "PointsInt = ${pointsInt.forEach { Log.d("VM Points Edition", "pointsInt = $it") }}")
         for (i in pointsInt.indices) {
             if (pointsInt[i] < 401 && pointsInt[i] > -401) {
                 errorList[i] = if (mode == PointsEditionFragment.SAVE_POINTS_MODE) {
@@ -65,17 +59,14 @@ class PointsEditionViewModel(application: Application) : AndroidViewModel(applic
         }
         _errorInputPoints.value = errorList
         result = !errorList.any { it }
-        Log.d("VM Points Edition", "errorList = ${errorList[0]}, ${errorList[1]}")
-        Log.d("VM Points Edition", "Result = $result")
+
         return result
     }
 
     fun getAuctionResult(): Pair<PlayerOrder, Int> {
-        Log.d("VM Points Edition", "get Auction Result")
         if (mode == PointsEditionFragment.AUCTION_MODE) {
             val max = pointsInt.maxOf { it }
             val playerOrder: PlayerOrder = PlayerOrder.fromInt(pointsInt.indexOf(max))
-            Log.d("VM Points Edition getAuctionResult()", "max = $max, plasyerOrder = $playerOrder")
             val roundedResult = (round(max.toDouble() / 5) * 5).toInt()
             return Pair(playerOrder, roundedResult)
         }
@@ -84,11 +75,6 @@ class PointsEditionViewModel(application: Application) : AndroidViewModel(applic
 
     private fun checkForNotAccordingRequest(points: Int, player: Player): Boolean {
         val reqPoints = player.requestedPoints
-        /*if (reqPoints > 0) {
-            //if (points != reqPoints && points != -reqPoints && !player.isOnBarrel) return true
-            if (points != reqPoints && points != -reqPoints) return true
-            //else if (player.isOnBarrel && points < 0) return true
-        }*/
         return false
     }
 

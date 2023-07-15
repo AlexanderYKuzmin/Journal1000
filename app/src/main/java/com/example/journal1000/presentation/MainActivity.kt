@@ -31,7 +31,6 @@ import java.util.*
 class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
 
     private lateinit var binding: ActivityMainBinding
-    //private lateinit var viewModel: MainViewModel
     private lateinit var gameScoreList3PFragment: androidx.fragment.app.Fragment
     private lateinit var gameScoreList2PFragment: androidx.fragment.app.Fragment
 
@@ -61,7 +60,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
         launchStartFragment()
 
         viewModel.isSearch.observe(this) {
-            Log.d("Observe isSearch", "render ui it = $it")
             renderUi()
         }
         viewModel.gameSettingsStarted.observe(this) {
@@ -69,7 +67,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
         }
         viewModel.isGameOn.observe(this){
             if (it) launchGameListFragment()
-            //else
         }
         viewModel.searchState.observe(this) {
             launchGamesFragment(
@@ -97,10 +94,8 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
                 viewModel.handleSearchPanelOnShow()
             }
             R.id.action_new -> {
-                Log.d("MainActivity", "NEW pressed")
                 supportFragmentManager.popBackStack()
                 viewModel.handleNew()
-                //launchNewGameSettingsFragment()
             }
             R.id.action_save -> {
                 viewModel.handleSave()
@@ -113,24 +108,18 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
                 intent.putExtra(FINISH, true)
                 finish()
             }
-
             R.id.action_rules -> {
                 viewModel.handleRules()
             }
-
         }
         return true
     }
 
     private fun renderUi() {
         supportFragmentManager.popBackStack(GAME_SCORE_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        Log.d("render ui", "isSearchShow = ${viewModel.isSearchShow}")
         if (viewModel.isSearchShow) {
-            Log.d("render ui", "isSearchShow = ${viewModel.isSearchShow}")
             binding.searchView.open()
         } else binding.searchView.close()
-
-        //if(viewModel.isGameOn) launchGameListFragment()
     }
 
     fun setupToolbar() {
@@ -167,12 +156,7 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
                 vbSearchView.etDateFrom.text.toString(),
                 vbSearchView.etDateTo.text.toString()
             )
-            /*viewModel.handleSearchResult(
-                vbSearchView.etDateFrom.toString(),
-                vbSearchView.etDateTo.toString(),
-        )*/ }
-
-
+        }
     }
 
     private fun showDateDialog(date_in: EditText) {
@@ -235,7 +219,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
     }
 
     private fun launchGameListFragment() {
-        Log.d(LOG_TAG, "launch List Fragment viewModel.players.size = ${viewModel.players.size}")
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         if (viewModel.gameType == GameType.THREE_PLAYER_GAME) {
             gameScoreList3PFragment = GameScoreListBaseFragment.newInstance(GameType.THREE_PLAYER_GAME)
@@ -272,8 +255,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
     }
 
     private fun launchRulesFragment() {
-        Log.d(LOG_TAG, "launch rules Fragment")
-        //supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.slide_in,
@@ -300,7 +281,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
     }
 
     override fun onFinishAuctionEdition(auctionData: Pair<PlayerOrder, Int>) {
-        Log.d("MainActivity", "auctionData = ${auctionData.first} , ${auctionData.second}")
         viewModel.handleRequestPoints(auctionData)
     }
 
@@ -322,20 +302,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
             .commit()
     }
 
-    /*override fun onStartAuctionEdition(mode: Int) {
-        supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.slide_out
-            )
-            .replace(R.id.playlist_container,
-                PointsEditionFragment.newInstance(mode))
-            .addToBackStack(null)
-            .commit()
-    }*/
-
     override fun onShowGameResult() {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
@@ -349,19 +315,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
             .addToBackStack(null)
             .commit()
     }
-
-    /*private fun removeActiveFragment() {
-        Log.d("MainActivity", "remove fragment")
-        //val fragment = supportFragmentManager.findFragmentByTag(GAME_LIST)
-        gameScoreListFragment?.let {
-            Log.d("MainActivity", "removing fragment ${it.id}")
-            supportFragmentManager.beginTransaction().remove(it).commit()
-        }
-        Log.d("MainActivity", "fragment is = ${gameScoreListFragment.id}")
-        viewModel.handleNew()
-    }*/
-
-
 
     override fun onFinishGame() {
         supportFragmentManager.popBackStack(GAME_SCORE_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE)

@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun String.toDate(): Date? {
-    Log.d("String extension", "String date: $this")
     val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale("ru"))
     return try {
         dateFormat.parse(this)

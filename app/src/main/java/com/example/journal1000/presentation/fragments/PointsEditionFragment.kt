@@ -89,7 +89,7 @@ class PointsEditionFragment : Fragment() {
         if (context is OnFragmentBehaviorControlManager) {
             finishEditionListener = context
         } else {
-            throw java.lang.RuntimeException("Activity must implement listener!")
+            throw RuntimeException("Activity must implement listener!")
         }
     }
 
@@ -129,11 +129,9 @@ class PointsEditionFragment : Fragment() {
 
     private fun setControlButtonsListener() {
         binding.tvCancelSs.setOnClickListener {
-            //viewModel.handleTestChangePoints()
             finishEdition()
         }
         binding.tvContinueSs.setOnClickListener {
-            Log.d("tv continue", "button is pressed")
             val playersPoints: MutableList<String> = mutableListOf()
             playersPoints.add(binding.etP1Points.text.toString())
             playersPoints.add(binding.etP2Points.text.toString())
@@ -142,7 +140,6 @@ class PointsEditionFragment : Fragment() {
             }
 
             if (viewModel.validateInput(playersPoints)) {
-                Log.d("Btn Continue", "Players requests: ${players[0].requestedPoints}, ${players[1].requestedPoints}, ${players[2].requestedPoints}")
                 if (viewModel.validateInputValuesAndSetUp(playersPoints, players)) {
                     if (mode == SAVE_POINTS_MODE)  finishEdition(viewModel.pointsInt)
                     else finishEdition(viewModel.getAuctionResult())
@@ -205,14 +202,5 @@ class PointsEditionFragment : Fragment() {
                 }
             }
         }
-
-        /*@JvmStatic
-        fun newInstance(mode: Int): PointsEditionFragment {
-            return PointsEditionFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(MODE, mode)
-                }
-            }
-        }*/
     }
 }
