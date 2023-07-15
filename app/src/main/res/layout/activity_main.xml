@@ -22,7 +22,7 @@
             app:logo="@drawable/cards_logo"
             app:title="@string/app_name_rus"
             app:subtitle="@string/subtitle_rus"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="enterAlways"
             android:elevation="4dp"/>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,7 +33,6 @@
         android:visibility="gone"
         tools:visibility="visible"
         app:layout_dodgeInsetEdges="top">
-
     </com.example.journal1000.presentation.SearchView>
 
     <androidx.fragment.app.FragmentContainerView
@@ -44,10 +43,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="12dp"
-
         tools:context=".presentation.GameSettingsFragment"
         tools:layout="@layout/fragment_game_settings">
     </androidx.fragment.app.FragmentContainerView>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

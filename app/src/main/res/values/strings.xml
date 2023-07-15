@@ -36,7 +36,7 @@
 
     <!-- Fragment finish -->
     <string name="title_finish">Результат игры</string>
-    <string name="game_count">Распределение очков между игроками:</string>
+    <string name="game_count">Распределение выигрыша:</string>
     <string name="player_name">%s :</string>
 
     <!-- Start Fragment -->

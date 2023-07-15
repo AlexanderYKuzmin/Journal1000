@@ -142,6 +142,7 @@ class PointsEditionFragment : Fragment() {
             }
 
             if (viewModel.validateInput(playersPoints)) {
+                Log.d("Btn Continue", "Players requests: ${players[0].requestedPoints}, ${players[1].requestedPoints}, ${players[2].requestedPoints}")
                 if (viewModel.validateInputValuesAndSetUp(playersPoints, players)) {
                     if (mode == SAVE_POINTS_MODE)  finishEdition(viewModel.pointsInt)
                     else finishEdition(viewModel.getAuctionResult())

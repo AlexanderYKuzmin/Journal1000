@@ -84,10 +84,11 @@ class PointsEditionViewModel(application: Application) : AndroidViewModel(applic
 
     private fun checkForNotAccordingRequest(points: Int, player: Player): Boolean {
         val reqPoints = player.requestedPoints
-        if (reqPoints > 0) {
-            if (points != reqPoints && points != -reqPoints && !player.isOnBarrel) return true
-            else if (player.isOnBarrel && points < 0) return true
-        }
+        /*if (reqPoints > 0) {
+            //if (points != reqPoints && points != -reqPoints && !player.isOnBarrel) return true
+            if (points != reqPoints && points != -reqPoints) return true
+            //else if (player.isOnBarrel && points < 0) return true
+        }*/
         return false
     }
 

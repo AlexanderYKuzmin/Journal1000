@@ -111,13 +111,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     val auctionFinished: LiveData<Unit>
         get() = _auctionFinished
 
-    private val getListOfGamesUseCase = GetListOfGamesUseCase(repository)
     private val getGameWithScoresUseCase = GetGameWithScoresUseCase(repository)
-    //private val saveGame = SaveGameUseCase(repository)
-    //private val savePlayersUseCase = SavePlayersUseCase(repository)
     private val saveGameWithScoresUseCase = SaveGameWithScoresUseCase(repository)
-    private val deleteAllGamesUseCase = GetGameWithScoresUseCase(repository)
-    //private val deleteGameWithScoresUseCase = DeleteGameWithScoresUseCase(repository)
 
     init {
         Log.d("Init Block", "Block started")
@@ -127,13 +122,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     fun startGame() {
         _isGameOn.value = true
     }
-
-    /*@OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onGameReady() {
-        gameSettingsStarted.value = true
-    }*/
-
-    //fun loadGames() = getListOfGamesUseCase.getListOfGames()
 
     fun loadGame(id: Long) {
         viewModelScope.launch {
@@ -250,20 +238,23 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
 
         MessageHolder.clear(MessageHolder.GAME_SCORE_LIST_DEST)
         prevPlayers = players.map { player -> player.copy() }.toList()
-        clearAuctionData()
+        //clearAuctionData()
         _isBackStepPressed.value = false
 
-        //val pointsInt: List<Int> = points.filter { it.isNotBlank() }.map { it.toInt() }
         val roundedPoints = points.map { (round(it.toDouble() / 5) * 5).toInt() }
-        //val playersCounts = mutableListOf<Int>()
+        val consistentPoints = Array(points.size){0}
 
         changePlayerOnHundredNumber()
 
         for (i in points.indices) {
-            _players[i].count += roundedPoints[i]
-            _players[i].countInTime = roundedPoints[i]
+            consistentPoints[i] = drivePlayerPointsToBeConsistent(_players[i], roundedPoints[i])
+            //check check for according request points to rules
+            //if player on hundred then compare current points with requests
+            //create method to drive current points to be consistent
+            _players[i].count += consistentPoints[i]
+            _players[i].countInTime = consistentPoints[i]
             Log.d("handleCount", "players[$i] = ${players[i].count}")
-            checkPlayerForBolt(players[i], roundedPoints[i])
+            checkPlayerForBolt(players[i], roundedPoints[i]) // consistent points может быть 0 , но фактически игрок наюр
             checkPlayerForBarrel(players[i])
             checkPlayerForResetCount(players[i])
             checkForPlayerPointOverflow(players[i])
@@ -277,7 +268,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
 
         currentScore = gameFactory.getScoreInstance(playersCounts).also { _scores.add(it) }
 
-        val newGameListItem = gameFactory.createGameListItem(roundedPoints, playersCounts)
+        val newGameListItem = gameFactory.createGameListItem(consistentPoints.toList(), playersCounts)
         val newGameList = currentGameList.toMutableList()
         newGameList.add(newGameListItem)
         _gameList.value = newGameList
@@ -316,17 +307,20 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
             it.requestedPoints = auctionData.second
                 Log.d("Game VM", "handle request points player name = ${it.name} playerOrder = ${it.playerOrder} requested points = ${it.requestedPoints}")
             _auctionFinished.value = Unit
+            } else {
+                it.requestedPoints = 0
             }
         }
     }
 
     private fun setDefaultRequestPoints() {
-        _players.map {
+        clearAuctionData()
+        /*_players.map {
             if (it.isOnBarrel) {
                 it.requestedPoints = 120
                 return
             }
-        }
+        }*/
         _players.map { if (it.onHundred) it.requestedPoints = 100 }
     }
 
@@ -349,12 +343,31 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         _gameSettingsStarted.value = Unit
     }
 
+    private fun drivePlayerPointsToBeConsistent(player: Player, points: Int): Int {
+        Log.d("Check Consistent", "Player: ${player.name} request: ${player.requestedPoints}  current points: $points")
+        return if (player.isOnBarrel && player.onHundred) {
+            if (player.requestedPoints > WIN_THRESHOLD_ON_BARREL) {
+                when (points) {
+                    in player.requestedPoints..400 -> player.requestedPoints
+                    else -> (-1) * player.requestedPoints
+                }
+            } else if (player.requestedPoints > 0) {
+                FINE_FOR_BARREL_OFF
+            } else points
+        } else if (player.requestedPoints >= 100) {
+            when (points) {
+                in player.requestedPoints..400 -> player.requestedPoints
+                else -> player.requestedPoints * (-1)
+            }
+        } else points
+    }
+
     private fun checkPlayerForBolt(player: Player, points: Int) {
         if (points == 0) {
-            if (!player.isOnBarrel) {
+            //if (!player.isOnBarrel) {
                 player.boltNumber++
                 createMessage(R.string.player_get_bolt, player.name)
-            }
+            //}
         }
         if (player.boltNumber == 3) {
             player.count -= 120
@@ -382,7 +395,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
                 onBarrel = player.playerOrder
                 createMessage(R.string.player_on_barrel, player.name)
             }
-        }
+        } else if (player.isOnBarrel) getOffFromBarrel(player)
     }
 
     private fun reCheckBarrelDataOfPlayers() {
@@ -396,7 +409,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     private fun getOffFromBarrel(player: Player) {
-        player.count = OFF_BARREL_VALUE
+        if (player.count == ON_BARREL_VALUE || player.count > OFF_BARREL_VALUE) {
+            player.count = OFF_BARREL_VALUE
+        }
         player.onBarrelAttemptCount = 0
         player.isOnBarrel = false
         createMessage(R.string.player_off_barrel, player.name)
@@ -587,9 +602,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         const val NOBODY = -1
 
         const val ON_BARREL_VALUE = 880
+        const val FINE_FOR_BARREL_OFF = -120
         const val OFF_BARREL_VALUE = 760
         const val WIN_VALUE = 1000
         const val RESET_TO_ZERO_VALUE = 555
+        const val HUNDRED = 100
+        const val WIN_THRESHOLD_ON_BARREL = 120
     }
 }
 

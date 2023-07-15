@@ -88,7 +88,7 @@ class GameScoreList2PFragment : GameScoreListBaseFragment() {
                 arrayOf(tvP1BarrelCount2, tvP2BarrelCount2)
             )
             checkAndSetBoltsCountAndVisibility(
-                arrayOf(ivBolt2, ivP2Bolt2),
+                arrayOf(ivP1Bolt2, ivP2Bolt2),
                 arrayOf(tvP1BoltCount2, tvP2BoltCount2)
             )
 
