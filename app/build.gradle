@@ -40,16 +40,14 @@ android {
         viewBinding true
         dataBinding true
     }
-
-
 }
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    def roomVersion = "2.4.2"
+    def roomVersion = "2.5.2"
 
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
@@ -80,7 +78,3 @@ dependencies {
     //implementation "androidx.core:core-ktx:+"
     //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
 }
-/*
-repositories {
-    mavenCentral()
-}*/

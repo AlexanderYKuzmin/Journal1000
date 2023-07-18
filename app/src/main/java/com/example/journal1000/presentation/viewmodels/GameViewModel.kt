@@ -109,7 +109,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     private val saveGameWithScoresUseCase = SaveGameWithScoresUseCase(repository)
 
     init {
-        Log.d("Init Block", "Block started")
         loadPreferences()
     }
 
@@ -147,9 +146,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
                 savePreferences()
             }
         }
-
-        players.forEach { Log.d("VM Save Game", "player ${it.name} game_id = ${it.gameId}") }
-        scores.forEach { Log.d("VM Save Game", "score ${it.step} game_id = ${it.gameId}") }
     }
 
     fun createNewGame(playersNames: List<String>) {
@@ -546,9 +542,3 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         const val WIN_THRESHOLD_ON_BARREL = 120
     }
 }
-
-data class SearchState(
-    val startDate: Date = Date(0),
-    val endDate: Date = Date(Long.MAX_VALUE),
-    val name: String = ""
-)

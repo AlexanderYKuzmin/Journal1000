@@ -21,7 +21,6 @@ class PointsEditionViewModel(application: Application) : AndroidViewModel(applic
 
     var mode: Int = 0
 
-
     fun resetErrorInputPoints(playerNumber: Int) {
         val errorList = errorInputPoints.value
         errorList!![playerNumber] = false

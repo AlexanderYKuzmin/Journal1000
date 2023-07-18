@@ -331,7 +331,6 @@ class MainActivity : AppCompatActivity(), OnFragmentBehaviorControlManager {
     }
 
     companion object {
-        const val LOG_TAG = "MainActivity"
         const val FINISH = "finish_key_extra"
     }
 }

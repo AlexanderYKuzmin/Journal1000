@@ -61,7 +61,5 @@ class GameList2PAdapter(val context: Context) : RecyclerView.Adapter<GameList2PA
         }
     }
 
-
     inner class GameList2PViewHolder(val binding: LayoutGameListItem2PBinding) : RecyclerView.ViewHolder(binding.root)
-
 }

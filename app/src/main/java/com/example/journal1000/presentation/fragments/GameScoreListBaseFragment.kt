@@ -125,48 +125,6 @@ abstract class GameScoreListBaseFragment: Fragment() {
         }
     }
 
-
-
-    protected fun checkAndSetBarrelsVisibility(iv: View, tv: View, player: Player) {
-        if (player.isOnBarrel) {
-            iv.visibility = View.VISIBLE
-            tv.visibility = View.VISIBLE
-        }
-        else {
-            iv.visibility = View.GONE
-            tv.visibility = View.GONE
-        }
-    }
-
-    protected fun checkAndSetBoltsVisibility(iv: View, tv: View, player: Player) {
-        if (player.boltNumber > 0) {
-            iv.visibility = View.VISIBLE
-            tv.visibility = View.VISIBLE
-        }
-        else {
-            iv.visibility = View.GONE
-            tv.visibility = View.GONE
-        }
-    }
-
-    protected fun checkAndSetAuctionDataVisibility(til: View, player: Player) {
-        if (player.requestedPoints >= 100) {
-            til.visibility = View.VISIBLE
-            til.alpha = 0.0f
-            til.animate().apply {
-                interpolator = LinearInterpolator()
-                duration = 500
-                alpha(1f)
-                startDelay = delayAuctionDataAppearance.toLong()
-                start()
-            }
-        }
-        else {
-            til.visibility = View.INVISIBLE
-        }
-
-    }
-
     protected fun setAuctionVisibility(isGameFinished: Boolean) = when {
         isGameFinished -> View.INVISIBLE
         else -> View.VISIBLE
@@ -174,10 +132,6 @@ abstract class GameScoreListBaseFragment: Fragment() {
 
     protected fun showMessages() {
         MessageHolder.show(MessageHolder.GAME_SCORE_LIST_DEST)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     companion object {

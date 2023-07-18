@@ -71,7 +71,6 @@ class GamesAdapter(val context: Context): RecyclerView.Adapter<GamesAdapter.Game
             }
 
             binding.root.setOnClickListener {
-                Log.d("Games Adapter", "OnClickListener from holder. game id = ${games[position].game.gameId}")
                 onGameItemClickListener?.invoke(games[position])
             }
         }
