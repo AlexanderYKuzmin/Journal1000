@@ -1,7 +1,5 @@
 package com.example.journal1000.domain.entity
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.journal1000.domain.entity.GameType.THREE_PLAYER_GAME
 import com.example.journal1000.domain.entity.GameType.TWO_PLAYER_GAME
 import com.example.journal1000.presentation.GameViewModel
@@ -9,7 +7,6 @@ import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_ONE
 import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_THREE
 import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_TWO
 import com.example.journal1000.presentation.adapters.GameListItem
-import java.lang.RuntimeException
 import java.util.*
 
 
@@ -24,25 +21,9 @@ class GameFactory(private val vm: GameViewModel) {
         )
     }
 
-    fun getNewGameWithScoresInstance(): GameWithScores {
-        return GameWithScores(
-            game = vm.game.copy(),
-            players = vm.players
-        )
-    }
-
-    fun getGameWithScoresInstance(): GameWithScores {
-        return GameWithScores(
-            game = vm.game.copy(),
-            scores = vm.scores,
-            players = vm.players
-        )
-    }
-
     fun getScoreInstance(points: List<Int>): Score {
         val game = vm.game
         val scores = vm.scores
-        //val lastScore = if (scores.isEmpty()) Score() else scores.last()
 
         return Score(
             playerOneCount = points[0],
@@ -71,6 +52,4 @@ class GameFactory(private val vm: GameViewModel) {
             )
         }
     }
-
-
 }

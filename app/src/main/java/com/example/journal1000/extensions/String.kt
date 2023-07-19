@@ -1,14 +1,12 @@
 package com.example.journal1000.extensions
 
-import android.util.Log
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun String.toDate(): Date? {
-    Log.d("String extension", "String date: $this")
     val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale("ru"))
-    return try {
+    return  try {
         dateFormat.parse(this)
     } catch (e: ParseException) {
         null

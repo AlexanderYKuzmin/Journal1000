@@ -1,22 +1,17 @@
 package com.example.journal1000.presentation.fragments
 
 import android.content.Context
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.journal1000.App
 import com.example.journal1000.R
 import com.example.journal1000.data.MessageHolder
 import com.example.journal1000.domain.entity.GameType
 import com.example.journal1000.domain.entity.Player
 import com.example.journal1000.presentation.GameViewModel
-import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_ONE
 import com.example.journal1000.presentation.OnFragmentBehaviorControlManager
 
 abstract class GameScoreListBaseFragment: Fragment() {
@@ -39,7 +34,6 @@ abstract class GameScoreListBaseFragment: Fragment() {
         }
     }
 
-    val range = IntRange(0,8)
     var players: List<Player> = listOf()
 
     protected open fun renderHeader() {
@@ -125,61 +119,13 @@ abstract class GameScoreListBaseFragment: Fragment() {
         }
     }
 
-
-
-    protected fun checkAndSetBarrelsVisibility(iv: View, tv: View, player: Player) {
-        if (player.isOnBarrel) {
-            iv.visibility = View.VISIBLE
-            tv.visibility = View.VISIBLE
-        }
-        else {
-            iv.visibility = View.GONE
-            tv.visibility = View.GONE
-        }
-    }
-
-    protected fun checkAndSetBoltsVisibility(iv: View, tv: View, player: Player) {
-        if (player.boltNumber > 0) {
-            iv.visibility = View.VISIBLE
-            tv.visibility = View.VISIBLE
-        }
-        else {
-            iv.visibility = View.GONE
-            tv.visibility = View.GONE
-        }
-    }
-
-    protected fun checkAndSetAuctionDataVisibility(til: View, player: Player) {
-        if (player.requestedPoints >= 100) {
-            til.visibility = View.VISIBLE
-            til.alpha = 0.0f
-            til.animate().apply {
-                interpolator = LinearInterpolator()
-                duration = 500
-                alpha(1f)
-                startDelay = delayAuctionDataAppearance.toLong()
-                start()
-            }
-        }
-        else {
-            til.visibility = View.INVISIBLE
-        }
-
-    }
-
     protected fun setAuctionVisibility(isGameFinished: Boolean) = when {
         isGameFinished -> View.INVISIBLE
-        /*players.any { it.isOnBarrel } -> View.INVISIBLE*/
         else -> View.VISIBLE
     }
 
     protected fun showMessages() {
         MessageHolder.show(MessageHolder.GAME_SCORE_LIST_DEST)
-    }
-
-    override fun onDestroy() {
-        Log.d("GameScorelistFragment", "on Destroy")
-        super.onDestroy()
     }
 
     companion object {

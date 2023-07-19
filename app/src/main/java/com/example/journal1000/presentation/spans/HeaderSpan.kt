@@ -11,10 +11,8 @@ import android.text.style.LineHeightSpan
 import android.text.style.MetricAffectingSpan
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import androidx.annotation.IntRange
 
 class HeaderSpan(
-    //@IntRange(from = 1, to = 6)
     private val level: Int,
     @ColorInt
     private val textColor: Int,
@@ -113,15 +111,9 @@ class HeaderSpan(
                 )
             }
         }
-
-        //val oldSize = paint.textSize
-        //paint.textSize *= sizes[level]!!
-        //canvas.drawFontLines(lineTop, lineBottom, lineBaseline, paint)
-        //paint.textSize = oldSize
     }
 
     override fun getLeadingMargin(first: Boolean): Int {
-        //TODO implement me
         return 0
     }
 
@@ -150,7 +142,5 @@ class HeaderSpan(
         drawLine(0f, top + 0f, width + 0f, top + 0f, Paint().apply { color = Color.BLUE })
         drawLine(0f, bottom + 0f, width + 0f, bottom + 0f, Paint().apply { color = Color.GREEN })
         drawLine(0f, lineBaseLine + 0f, width + 0f, lineBaseLine + 0f, Paint().apply { color = Color.RED })
-        //drawLine(0f, lineBaseLine + paint.ascent(), width + 0f, lineBaseLine + paint.ascent(), Paint().apply { color = Color.YELLOW })
-        //drawLine(0f, lineBaseLine + paint.descent(), width + 0f, lineBaseLine + paint.descent(), Paint().apply { color = Color.CYAN })
     }
 }

@@ -6,28 +6,24 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.journal1000.App
 import com.example.journal1000.R
-import com.example.journal1000.data.DataHolder
 import com.example.journal1000.data.GamePreferences
 import com.example.journal1000.data.MessageHolder
 import com.example.journal1000.data.PrefManager
-import com.example.journal1000.data.db.AppDatabase
 import com.example.journal1000.data.UserScheme.GAME_ID
 import com.example.journal1000.data.UserScheme.NAME_ONE
 import com.example.journal1000.data.UserScheme.NAME_THREE
 import com.example.journal1000.data.UserScheme.NAME_TWO
 import com.example.journal1000.data.UserScheme.NUM_OF_PLAYERS
-import com.example.journal1000.data.markdown.MarkdownParser
+import com.example.journal1000.data.db.AppDatabase
 import com.example.journal1000.domain.entity.*
 import com.example.journal1000.domain.entity.GameType.THREE_PLAYER_GAME
 import com.example.journal1000.domain.entity.GameType.TWO_PLAYER_GAME
 import com.example.journal1000.domain.entity.PlayerOrder.*
 import com.example.journal1000.domain.usecases.*
 import com.example.journal1000.presentation.adapters.GameListItem
-import com.example.journal1000.presentation.markdown.MarkdownBuilder
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.lang.RuntimeException
 import java.util.*
 import kotlin.math.round
 
@@ -37,8 +33,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     private val gameFactory: GameFactory = GameFactory(this)
     private val prefManager: PrefManager = PrefManager(getApplication())
     lateinit var prefs: GamePreferences
-
-    //private val contentRules = MarkdownParser.parse(DataHolder.rulesText)
 
     private val _showRules = MutableLiveData<Unit>()
     val showRules: LiveData<Unit>
@@ -61,16 +55,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     val gameList: LiveData<MutableList<GameListItem>>
         get() = _gameList
 
-    var currentGameList: MutableList<GameListItem> = mutableListOf()
+    private val currentGameList: MutableList<GameListItem>
         get() = _gameList.value?.toMutableList() ?: mutableListOf()
 
     private val _searchState = MutableLiveData<Unit>()
     val searchState: LiveData<Unit>
         get() = _searchState
-
-    /*private var _games: MutableLiveData<MutableList<GameWithScores>> = MutableLiveData()
-    val games: LiveData<MutableList<GameWithScores>>
-        get() = _games*/
 
     private var _game: Game? = null
     val game: Game
@@ -103,10 +93,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
 
     private var onBarrel: PlayerOrder? = null
 
-    private var _messagesGameList = MutableLiveData<MutableList<String>>()
-    val messagesGameList: LiveData<MutableList<String>>
-        get() = _messagesGameList
-
     private var _auctionFinished = MutableLiveData<Unit>()
     val auctionFinished: LiveData<Unit>
         get() = _auctionFinished
@@ -115,7 +101,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     private val saveGameWithScoresUseCase = SaveGameWithScoresUseCase(repository)
 
     init {
-        Log.d("Init Block", "Block started")
         loadPreferences()
     }
 
@@ -141,11 +126,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         runBlocking {
             val job: Job = launch {
                 id = saveGameWithScoresUseCase.saveGameWithScores(game, scores, players)
-                Log.d("VM Save Game", "[${Thread.currentThread().name}]")
             }
             job.join()
             if (id != -1L && id != currentGameId) {
-                Log.d("VM save game", "game saved? starting setup gameId")
                 _game?.let { game ->
                     game.gameId = id
                     _players.map { it.gameId = id }
@@ -155,27 +138,17 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
                 savePreferences()
             }
         }
-        Log.d("VM Save Game", "currentGameId = $currentGameId")
-        Log.d("VM Save Game", "game_id = ${game.gameId}")
-        players.forEach { Log.d("VM Save Game", "player ${it.name} game_id = ${it.gameId}") }
-        scores.forEach { Log.d("VM Save Game", "score ${it.step} game_id = ${it.gameId}") }
     }
 
-    /*fun removeGame(games: List<Game>) {
-        deleteGameWithScoresUseCase.deleteGameWithScores(games)
-    }*/
-
     fun createNewGame(playersNames: List<String>) {
-        Log.d("Create Game", "New game creation")
         _game = gameFactory.getNewGameInstance(playersNames.size)
-        Log.d("VM Create Game", "Game created game_id = ${game.gameId}")
+
         for (i in playersNames.indices) {
             PlayerFactory.getNewPlayerInstance(playersNames[i], i)
                 .also {
                     _players.add(it)
                 }
         }
-        Log.d("VM Create Game", "Players created size = ${players.size}")
         _players[PLAYER_ONE].onHundred = true
 
         saveGame()
@@ -187,7 +160,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     fun handleNew() {
-        Log.d("GameVM", "Start new")
         clearGameData()
         loadPreferences()
         startNewGame()
@@ -199,7 +171,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     fun handleSave() {
-        Log.d("VM handle save() ", "saving game...")
         _game?.let {
             saveGame()
         }
@@ -210,21 +181,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         _isSearch.value = isSearchShow
     }
 
-    /*fun handleSearchResult(startDate: String?, endDate: String?) {
-        _searchState.value = if (searchState.value == null) SearchState()
-        else searchState.value!!.copy(
-            startDate = startDate?.toDate() ?: Date(0),
-            endDate = endDate?.toDate() ?: Date(Long.MAX_VALUE)
-        )
-        Log.d("SearchResult", "Awaiting for database request answer")
-        *//*viewModelScope.launch {
-            _games.value = getListOfGamesUseCase.getListOfGames(
-                searchState.value!!.startDate,
-                searchState.value!!.endDate
-            )
-        }*//*
-    }*/
-
     fun handleSelectGame(gameWithScores: GameWithScores) {
         restoreGameVariables(gameWithScores)
         restoreGameList()
@@ -233,12 +189,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     fun handleCount(points: List<Int>) {
-        Log.d("handleCount", "handle count started")
-        Log.d("handleCount", "points size = ${points.size}")
 
         MessageHolder.clear(MessageHolder.GAME_SCORE_LIST_DEST)
         prevPlayers = players.map { player -> player.copy() }.toList()
-        //clearAuctionData()
         _isBackStepPressed.value = false
 
         val roundedPoints = points.map { (round(it.toDouble() / 5) * 5).toInt() }
@@ -248,20 +201,15 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
 
         for (i in points.indices) {
             consistentPoints[i] = drivePlayerPointsToBeConsistent(_players[i], roundedPoints[i])
-            //check check for according request points to rules
-            //if player on hundred then compare current points with requests
-            //create method to drive current points to be consistent
             _players[i].count += consistentPoints[i]
             _players[i].countInTime = consistentPoints[i]
-            Log.d("handleCount", "players[$i] = ${players[i].count}")
+
             checkPlayerForBolt(players[i], roundedPoints[i]) // consistent points может быть 0 , но фактически игрок наюр
             checkPlayerForBarrel(players[i])
             checkPlayerForResetCount(players[i])
             checkForPlayerPointOverflow(players[i])
 
             _players[i].onHundred = i == game.onHundredPlayer.value
-            Log.d("handle count", "players[$i].onHundred = ${players[i].onHundred}")
-
         }
         reCheckBarrelDataOfPlayers()
         val playersCounts = players.map { it.count }.toMutableList()
@@ -289,14 +237,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         changePlayerOnHundredNumberReverse()
 
         val list = currentGameList.toMutableList()
-        Log.d("Handle cancel count", "current gamelist size = ${list.size}")
         list.removeLast()
-        Log.d("Handle cancel count", "current gamelist size after removal last = ${list.size}")
         _gameList.value = list
 
         _isGameFinished.value = false
         _isBackStepPressed.value = true
-        //playerOnHundred = game.onHundredPlayer.value
     }
 
     @SuppressWarnings("SuspiciousIndentation")
@@ -305,7 +250,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         _players.map {
             if (it.playerOrder == auctionData.first) {
             it.requestedPoints = auctionData.second
-                Log.d("Game VM", "handle request points player name = ${it.name} playerOrder = ${it.playerOrder} requested points = ${it.requestedPoints}")
             _auctionFinished.value = Unit
             } else {
                 it.requestedPoints = 0
@@ -330,7 +274,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
 
     fun clearAuctionData() {
         _players.map { it.requestedPoints = 0 }
-        players.forEach { Log.d("VM clear data", "requested points player[${it.playerOrder.value}] = ${it.requestedPoints}") }
     }
 
     private fun finishGame() {
@@ -344,7 +287,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     private fun drivePlayerPointsToBeConsistent(player: Player, points: Int): Int {
-        Log.d("Check Consistent", "Player: ${player.name} request: ${player.requestedPoints}  current points: $points")
         return if (player.isOnBarrel && player.onHundred) {
             if (player.requestedPoints > WIN_THRESHOLD_ON_BARREL) {
                 when (points) {
@@ -374,22 +316,20 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
             player.boltNumber = 0
             createMessage(R.string.player_pay_fine_bolt, player.name)
         }
-        // add notification ???
     }
 
-    private fun checkPlayerForBarrel(player: Player) { // могут ли два игрока быть набочке??
-        if (player.count >= ON_BARREL_VALUE) { //
-            if (player.isOnBarrel) {  //если уже был на бочке?
+    private fun checkPlayerForBarrel(player: Player) {      // могут ли два игрока быть набочке??
+        if (player.count >= ON_BARREL_VALUE) {              //
+            if (player.isOnBarrel) {                        //если уже был на бочке?
                 player.onBarrelAttemptCount++
-                if (player.count >= WIN_VALUE) { // если сейчас набрал нужные очки сидя на бочке
+                if (player.count >= WIN_VALUE) {            // если сейчас набрал нужные очки сидя на бочке
                     player.isWinner = true
                     player.onBarrelAttemptCount = 0
                     player.isOnBarrel = false
                 } else if (player.onBarrelAttemptCount == 3 || onBarrel != player.playerOrder) { // Если  сейчас не набрал нужное кол-во +1 к бочке и 3 бочкм - штраф если другой игрок уже влез на бочку
-                    Log.d("VM check player for barrel", "Player getting off ${player.name}, ${player.onBarrelAttemptCount}, ${player.playerOrder}, and On Barrel is $onBarrel")
                     getOffFromBarrel(player)
                 } else player.count = ON_BARREL_VALUE
-            } else { // если не на бочке но набрал >= 880
+            } else {                                        // если не на бочке но набрал >= 880
                 player.isOnBarrel = true
                 player.count = ON_BARREL_VALUE
                 onBarrel = player.playerOrder
@@ -401,7 +341,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     private fun reCheckBarrelDataOfPlayers() {
         players.forEach{ player ->
             if (player.playerOrder != onBarrel && player.count >= ON_BARREL_VALUE && !player.isWinner) {
-                Log.d("VM recheckBarel", "Player ${player.name} getting off after recheck")
                 getOffFromBarrel(player)
             }
         }
@@ -503,12 +442,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
     }
 
     private fun loadPreferences() {
-        Log.d("Load pref", "original id = $currentGameId")
         viewModelScope.launch {
             prefs = prefManager.readData(GAME_ID, NUM_OF_PLAYERS, NAME_ONE, NAME_TWO, NAME_THREE)
         }
-
-        Log.d("Load pref", "current id = $currentGameId")
     }
 
     private fun restoreGameVariables(gameWithScores: GameWithScores) {
@@ -516,10 +452,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application), L
         _scores = gameWithScores.scores.toMutableList()
         _players = gameWithScores.players.toMutableList()
 
-        //_gameType = gameWithScores.game.type !!!Обратить внимание , что не глючит
         _isGameFinished.value = gameWithScores.game.isGameFinished
-        //playerOnHundred = game.onHundredPlayer.value
-        Log.d("VM restore variables", "player on hundred = ${game.onHundredPlayer.value}")
         if (_game != null) currentGameId = game.gameId ?: throw RuntimeException("Game not found")
     }
 

@@ -2,7 +2,6 @@ package com.example.journal1000.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,14 +88,11 @@ class FinishGameFragment : Fragment() {
     }
 
     private fun getTextColor(result: Int): Int {
-        Log.d("FinishGame getcolor", "result Int = $result")
         return when {
             result > 0 -> {
-                Log.d("Finish game gat color", " result > 0  result = $result")
                 ContextCompat.getColor(requireContext(),R.color.color_current_points_positive)
             }
             result < 0 -> {
-                Log.d("Finish game gat color", " result < 0  result = $result")
                 ContextCompat.getColor(requireContext(), R.color.color_current_points_negative)
             }
             else -> {
@@ -115,10 +111,7 @@ class FinishGameFragment : Fragment() {
         }
     }
 
-
     companion object {
-         const val RESET_GAME = "reset"
-
         @JvmStatic
         fun newInstance(gameType: GameType, players: Array<Player>) =
             FinishGameFragment().apply {

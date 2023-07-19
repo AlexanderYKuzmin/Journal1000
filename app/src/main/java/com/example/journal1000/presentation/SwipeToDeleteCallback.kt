@@ -6,13 +6,11 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.journal1000.R
-import com.example.journal1000.extensions.dpToIntPx
 
 abstract class SwipeToDeleteCallback(val context: Context)
     : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -50,10 +48,8 @@ abstract class SwipeToDeleteCallback(val context: Context)
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             return
         }
-
         background.color = ContextCompat.getColor(context, R.color.color_article_bar)
         background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
-        Log.d("Swipe", "background bounds is  ${background.bounds}")
         background.draw(c)
 
         val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
@@ -61,9 +57,7 @@ abstract class SwipeToDeleteCallback(val context: Context)
         val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth
         val deleteIconRight = itemView.right - deleteIconMargin
         val deleteIconBottom = deleteIconTop + intrinsicHeight
-        Log.d("Swipe", "intrinsic width = $intrinsicWidth")
         deleteIcon?.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-        Log.d("SWipe", "deleteIcon is ${deleteIcon?.bounds}  margin = $deleteIconMargin")
         deleteIcon?.draw(c)
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)

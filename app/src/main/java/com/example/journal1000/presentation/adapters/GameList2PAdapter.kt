@@ -38,7 +38,6 @@ class GameList2PAdapter(val context: Context) : RecyclerView.Adapter<GameList2PA
 
                 binding.tvP2CountCurrent2.text = String.format("%d", p2CountCurrent)
                 binding.tvP2CountCurrent2.setTextColor(getTextColor(p2CountCurrent))
-
             }
         }
     }
@@ -61,7 +60,5 @@ class GameList2PAdapter(val context: Context) : RecyclerView.Adapter<GameList2PA
         }
     }
 
-
     inner class GameList2PViewHolder(val binding: LayoutGameListItem2PBinding) : RecyclerView.ViewHolder(binding.root)
-
 }

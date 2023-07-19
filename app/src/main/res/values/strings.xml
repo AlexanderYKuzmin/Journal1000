@@ -64,5 +64,9 @@
     <string name="player_win">Игрок %s одерживает победу</string>
     <string name="player_reset">Очки игрока %s сброшены</string>
 
+    <!--Search view-->
+    <string name="date_from">Дата с:</string>
+    <string name="date_upon">Дата по:</string>
+    <string name="ok">ОК</string>
 
 </resources>

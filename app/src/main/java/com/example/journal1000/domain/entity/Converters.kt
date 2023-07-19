@@ -3,7 +3,7 @@ package com.example.journal1000.domain.entity
 import androidx.room.TypeConverter
 import java.util.*
 
-class Converters() {
+class Converters {
 
     @TypeConverter
     fun fromPlayerOrder(value: PlayerOrder): Int {

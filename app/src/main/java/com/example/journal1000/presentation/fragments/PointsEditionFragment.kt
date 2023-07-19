@@ -2,11 +2,11 @@ package com.example.journal1000.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.journal1000.R
@@ -16,14 +16,12 @@ import com.example.journal1000.domain.entity.GameType.THREE_PLAYER_GAME
 import com.example.journal1000.domain.entity.GameType.TWO_PLAYER_GAME
 import com.example.journal1000.domain.entity.Player
 import com.example.journal1000.domain.entity.PlayerOrder
-import com.example.journal1000.presentation.GameViewModel
 import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_ONE
 import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_THREE
 import com.example.journal1000.presentation.GameViewModel.Companion.PLAYER_TWO
 import com.example.journal1000.presentation.OnFragmentBehaviorControlManager
 import com.example.journal1000.presentation.viewmodels.GameViewModelFactory
 import com.example.journal1000.presentation.viewmodels.PointsEditionViewModel
-import java.lang.RuntimeException
 
 private const val TYPE = "type"
 private const val PLAYERS = "players"
@@ -89,7 +87,7 @@ class PointsEditionFragment : Fragment() {
         if (context is OnFragmentBehaviorControlManager) {
             finishEditionListener = context
         } else {
-            throw java.lang.RuntimeException("Activity must implement listener!")
+            throw RuntimeException("Activity must implement listener!")
         }
     }
 
@@ -129,11 +127,9 @@ class PointsEditionFragment : Fragment() {
 
     private fun setControlButtonsListener() {
         binding.tvCancelSs.setOnClickListener {
-            //viewModel.handleTestChangePoints()
             finishEdition()
         }
         binding.tvContinueSs.setOnClickListener {
-            Log.d("tv continue", "button is pressed")
             val playersPoints: MutableList<String> = mutableListOf()
             playersPoints.add(binding.etP1Points.text.toString())
             playersPoints.add(binding.etP2Points.text.toString())
@@ -142,11 +138,10 @@ class PointsEditionFragment : Fragment() {
             }
 
             if (viewModel.validateInput(playersPoints)) {
-                Log.d("Btn Continue", "Players requests: ${players[0].requestedPoints}, ${players[1].requestedPoints}, ${players[2].requestedPoints}")
                 if (viewModel.validateInputValuesAndSetUp(playersPoints, players)) {
                     if (mode == SAVE_POINTS_MODE)  finishEdition(viewModel.pointsInt)
                     else finishEdition(viewModel.getAuctionResult())
-                } else Log.d("Points Edition Fragment", "inputs not valid")
+                }
             }
         }
     }
@@ -205,14 +200,5 @@ class PointsEditionFragment : Fragment() {
                 }
             }
         }
-
-        /*@JvmStatic
-        fun newInstance(mode: Int): PointsEditionFragment {
-            return PointsEditionFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(MODE, mode)
-                }
-            }
-        }*/
     }
 }

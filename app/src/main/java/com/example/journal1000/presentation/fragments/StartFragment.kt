@@ -16,16 +16,10 @@ import com.example.journal1000.presentation.GameViewModel
 
 class StartFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_start, container, false)
     }
 
@@ -76,10 +70,7 @@ class StartFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
-        fun newInstance() =
-            StartFragment()
-
+        fun newInstance() = StartFragment()
     }
 }

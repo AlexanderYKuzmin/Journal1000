@@ -1,8 +1,10 @@
 package com.example.journal1000.presentation.viewmodels
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.journal1000.data.db.AppDatabase
 import com.example.journal1000.domain.entity.GameWithScores
 import com.example.journal1000.domain.usecases.DeleteGameWithScoresUseCase
@@ -29,7 +31,6 @@ class ListGamesViewModel(
     fun loadGames(startDate: String, endDate: String) {
         this.startDate = startDate.toDate() ?: MIN_DATE
         this.endDate = endDate.toDate() ?: MAX_DATE
-        Log.d("ListGamesVM", "Awaiting for database request answer")
         viewModelScope.launch {
             _games.value = mutableListOf()
             _games.value = getListOfGamesUseCase.getListOfGames(

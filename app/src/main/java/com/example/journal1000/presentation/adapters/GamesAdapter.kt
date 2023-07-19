@@ -1,7 +1,6 @@
 package com.example.journal1000.presentation.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +70,6 @@ class GamesAdapter(val context: Context): RecyclerView.Adapter<GamesAdapter.Game
             }
 
             binding.root.setOnClickListener {
-                Log.d("Games Adapter", "OnClickListener from holder. game id = ${games[position].game.gameId}")
                 onGameItemClickListener?.invoke(games[position])
             }
         }
@@ -84,8 +82,6 @@ class GamesAdapter(val context: Context): RecyclerView.Adapter<GamesAdapter.Game
     override fun getItemViewType(position: Int): Int {
         return games[position].game.type.value
     }
-
-
 
     companion object {
         private const val THREE_PLAYER_GAME = 3

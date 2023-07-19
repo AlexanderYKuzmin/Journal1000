@@ -1,6 +1,5 @@
 package com.example.journal1000.domain.entity
 
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -10,15 +10,6 @@ data class Game(
     @ColumnInfo(name = "game_id")
     var gameId: Long? = null,
 
-    /*@ColumnInfo(name = "name_1")
-    val playerNameOne: String,
-
-    @ColumnInfo(name = "name_2")
-    val playerNameTwo: String,
-
-    @ColumnInfo(name = "name_3")
-    val playerNameThree: String? = null,*/
-
     @ColumnInfo(name = "players_qnt")
     val numberOfPlayers: Int,
 

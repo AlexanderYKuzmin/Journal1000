@@ -6,10 +6,6 @@ import java.util.Date
 
 class GetListOfGamesUseCase(private val repository: GameDao) {
 
-    /*fun getListOfGame(): List<GameWithScores> {
-        return repository.getListOfGames()
-    }*/
-
     suspend fun getListOfGames(fromDate: Date, toDate: Date): MutableList<GameWithScores> {
         return repository.getListOfGamesByDate(fromDate, toDate)
     }

@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.journal1000.data.DataHolder
-import com.example.journal1000.data.markdown.MarkdownParser
-import com.example.journal1000.databinding.FragmentGameScoreList3PBinding
 import com.example.journal1000.databinding.FragmentRulesBinding
 import com.example.journal1000.presentation.OnFragmentBehaviorControlManager
 import com.example.journal1000.presentation.markdown.MarkdownBuilder
@@ -20,15 +18,11 @@ class RulesFragment: Fragment() {
 
     private var removeRulesSheetListener: OnFragmentBehaviorControlManager? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRulesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,7 +30,6 @@ class RulesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //val contentRules = MarkdownParser.parse(DataHolder.rulesText)
         with(binding.tvRules) {
             setMovementMethod(ScrollingMovementMethod())
             setText(MarkdownBuilder(context).markdownToSpan(DataHolder.rulesText))

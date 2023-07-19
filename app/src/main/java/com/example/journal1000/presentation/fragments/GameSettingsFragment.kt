@@ -3,25 +3,19 @@ package com.example.journal1000.presentation.fragments
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.journal1000.R
 import com.example.journal1000.databinding.FragmentGameSettingsBinding
-import com.example.journal1000.domain.entity.GameType.THREE_PLAYER_GAME
-import com.example.journal1000.domain.entity.GameType.TWO_PLAYER_GAME
 import com.example.journal1000.presentation.OnFragmentBehaviorControlManager
 import com.example.journal1000.presentation.viewmodels.SettingsViewModel
-import java.lang.RuntimeException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val NUM_OF_PLAYERS = "number_of_players"
 private const val NAME_ONE = "name_1"
 private const val NAME_TWO = "name_2"
@@ -34,7 +28,6 @@ class GameSettingsFragment : Fragment() {
     private var name3: String? = null
 
     private lateinit var binding: FragmentGameSettingsBinding
-    //private lateinit var viewModel: GameViewModel
     private lateinit var viewModel: SettingsViewModel
 
     private var onFragmentBehaviorControlManager: OnFragmentBehaviorControlManager? = null
@@ -54,7 +47,6 @@ class GameSettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentGameSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -63,7 +55,6 @@ class GameSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModel = ViewModelProvider(requireActivity())[GameViewModel::class.java]
         viewModel = ViewModelProvider(requireActivity())[SettingsViewModel::class.java]
 
         viewModel.numberOfPlayers.observe(viewLifecycleOwner) {
@@ -72,8 +63,6 @@ class GameSettingsFragment : Fragment() {
 
         setNumberOfPlayerSelection()
         setControls()
-
-        //binding.spPlayers.
     }
 
     override fun onAttach(context: Context) {
@@ -81,7 +70,7 @@ class GameSettingsFragment : Fragment() {
         if (context is OnFragmentBehaviorControlManager) {
             onFragmentBehaviorControlManager = context
         } else {
-            throw java.lang.RuntimeException("Activity must implement listener!")
+            throw RuntimeException("Activity must implement listener!")
         }
     }
 
@@ -111,7 +100,6 @@ class GameSettingsFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
 
         }
@@ -133,7 +121,6 @@ class GameSettingsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setControls() {
         binding.tvContinue.setOnClickListener {
-            Log.d("Settings", "number of players = ${viewModel.numberOfPlayers.value}")
             val playerNames = when (viewModel.numberOfPlayers.value) {
                 3 -> arrayOf(
                     binding.etPlayerOneName.text.toString(),
@@ -151,7 +138,6 @@ class GameSettingsFragment : Fragment() {
         }
 
         binding.tvCancel.setOnClickListener {
-            Log.d("tv click listener", "Cancel clicked!")
             finishEdition(false)
         }
     }
